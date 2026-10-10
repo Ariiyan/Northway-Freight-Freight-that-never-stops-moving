@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Northway Freight — Freight that never stops moving</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100,600..900&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#070d16;--ink2:#0e1a29;--fg:#f1f5f9;--mu:#8b9bad;--ln:rgba(255,255,255,.13);--am:#ffb400;--am2:#e69f00;--ok:#2ec4a0;--err:#ff6b5b;--d:'Archivo',system-ui,sans-serif;color-scheme:dark;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:5rem}
+body{margin:0;background:var(--ink);color:var(--fg);font:400 1.03rem/1.6 'Public Sans',system-ui,sans-serif;overflow-x:hidden}
+a{color:inherit}:focus-visible{outline:3px solid var(--am);outline-offset:3px}
+h1,h2,h3{font-family:var(--d);font-stretch:112%;font-weight:800;letter-spacing:-.03em;line-height:1;margin:0}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+.wrap{max-width:74rem;margin:0 auto;padding:0 clamp(1.2rem,4vw,2.5rem)}
+.btn{display:inline-flex;align-items:center;justify-content:center;font:700 1rem var(--d);font-stretch:108%;padding:.95rem 1.6rem;border-radius:12px;border:0;background:var(--am);color:#07101a;text-decoration:none;cursor:pointer;min-height:3.2rem;transition:background .2s,box-shadow .3s;box-shadow:0 0 0 0 rgba(255,180,0,.5)}
+.btn:hover{background:#ffc733;box-shadow:0 0 34px 2px rgba(255,180,0,.45)}
+.btn.sm{padding:.6rem 1.1rem;min-height:2.5rem;font-size:.9rem;border-radius:9px}
+.btn.line{background:transparent;color:inherit;border:2px solid var(--ln)}.btn.line:hover{background:rgba(255,255,255,.08);box-shadow:none}
+header{position:fixed;top:0;left:0;right:0;z-index:20;padding-top:env(safe-area-inset-top,0px);background:linear-gradient(rgba(7,13,22,.85),transparent)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:4.4rem}
+.logo{display:flex;align-items:center;gap:.6rem;font:800 1.35rem var(--d);font-stretch:112%;text-decoration:none;letter-spacing:-.02em}.logo svg{width:1.7rem;height:1.7rem}
+.hr{display:flex;align-items:center;gap:1.4rem}.tel{font-weight:600;text-decoration:none}
+/* story */
+#story{position:relative;height:640vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.pn{position:absolute;left:clamp(1.2rem,6vw,6rem);right:clamp(1.2rem,6vw,6rem);bottom:12vh;opacity:var(--o,0);pointer-events:none;max-width:46rem}
+.pn.on{pointer-events:auto}
+.pn h1,.pn h2{font-size:clamp(2.6rem,7vw,6.4rem);margin-bottom:1.1rem;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+.pn h2{clip-path:inset(-.1em calc((1 - var(--o,0)) * 100%) -.2em 0)}
+.pn p{color:#c3cfdb;font-size:1.12rem;max-width:30rem;margin:0 0 1.4rem;text-shadow:0 2px 20px rgba(0,0,0,.8)}
+.wl{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}.wd{display:inline-block;animation:up 1.1s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(var(--i)*.08s + .5s)}
+@keyframes up{from{transform:translateY(110%)}}
+.fade{animation:fi 1s ease both;animation-delay:1.3s}@keyframes fi{from{opacity:0;transform:translateY(16px)}}
+.qb{display:grid;grid-template-columns:1fr 1fr auto;gap:.6rem;background:rgba(14,26,41,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--ln);border-radius:16px;padding:.6rem;max-width:42rem}
+.qb label{display:block;padding:.35rem .8rem;border-radius:10px}.qb label span{display:block;font-size:.72rem;color:var(--mu);font-weight:600}
+.qb input{width:100%;background:none;border:0;color:#fff;font:600 1.05rem 'Public Sans';padding:.15rem 0;outline:0;text-transform:uppercase}.qb input::placeholder{color:#5d6e80;text-transform:none;font-weight:400}
+.qb label:focus-within{background:rgba(255,255,255,.07)}.qb label.bad{background:rgba(255,107,91,.14)}
+.proof{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:1.1rem;font-size:.9rem;color:var(--mu)}.proof b{color:#fff;font-weight:600}
+.big{font:800 clamp(3rem,8vw,6rem)/1 var(--d);font-stretch:112%;color:var(--am);display:block;margin-bottom:.3rem}
+.hud{position:absolute;right:clamp(1.2rem,4vw,3rem);bottom:12vh;width:17rem;background:rgba(7,13,22,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--ln);border-radius:16px;padding:1.1rem 1.2rem;font-variant-numeric:tabular-nums;transition:border-color .4s,box-shadow .4s}
+.hud.hot{border-color:rgba(255,180,0,.6);box-shadow:0 0 40px -8px rgba(255,180,0,.5)}
+.hud h4{margin:0 0 .8rem;font:700 .85rem var(--d);display:flex;justify-content:space-between;color:var(--mu)}.hud h4 i{font-style:normal;color:var(--ok)}
+.hud .sp{font:800 3rem/1 var(--d);font-stretch:112%}.hud .sp small{font:500 .9rem 'Public Sans';color:var(--mu)}
+.hud dl{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1rem;margin:.9rem 0 1rem;font-size:.88rem}.hud dt{color:var(--mu)}.hud dd{margin:0;text-align:right;font-weight:600}
+.bar{height:4px;border-radius:4px;background:var(--ln);position:relative}.bar b{position:absolute;inset:0;background:var(--am);border-radius:4px;transform-origin:0 50%;transform:scaleX(0);box-shadow:0 0 12px var(--am)}
+/* sections */
+.after{position:relative;z-index:2;background:var(--ink)}
+section.s{padding:clamp(4rem,9vw,7rem) 0}
+.sh{max-width:40rem;margin-bottom:2.6rem}.sh h2{font-size:clamp(2rem,4.8vw,3.6rem)}.sh p{color:var(--mu);font-size:1.1rem;margin:.9rem 0 0}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;perspective:1000px}
+.sc{--mx:50%;--my:50%;position:relative;background:var(--ink2);border:1px solid var(--ln);border-radius:18px;padding:1.8rem;display:flex;flex-direction:column;transform-style:preserve-3d;transition:transform .15s ease-out,border-color .3s;overflow:hidden}
+.sc::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx) var(--my),rgba(255,180,0,.16),transparent 60%);opacity:0;transition:opacity .3s}
+.sc:hover{border-color:rgba(255,180,0,.5)}.sc:hover::before{opacity:1}
+.sc>*{position:relative}.sc .pr{font:800 2.5rem var(--d);font-stretch:112%;margin:.8rem 0 .2rem;letter-spacing:-.03em}.sc .pr small{font:500 .9rem 'Public Sans';color:var(--mu);letter-spacing:0}
+.sc ul{list-style:none;padding:0;margin:1rem 0 1.6rem;display:grid;gap:.45rem;color:var(--mu);font-size:.95rem;flex:1}.sc ul li::before{content:"✓";color:var(--am);font-weight:700;margin-right:.55rem}
+.sc.pop{border-color:var(--am)}.sc .btn{width:100%}
+.cnt{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;border-top:1px solid var(--ln);border-bottom:1px solid var(--ln);padding:2.6rem 0}
+.cnt b{display:block;font:800 clamp(2.4rem,5vw,4rem)/1 var(--d);font-stretch:112%;letter-spacing:-.04em}.cnt span{color:var(--mu);font-size:.95rem}
+.mq{overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.mt{display:flex;gap:1.1rem;width:max-content;animation:mq 50s linear infinite}.mq:hover .mt{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+.tm{width:22rem;flex:none;background:var(--ink2);border:1px solid var(--ln);border-radius:16px;padding:1.4rem}.tm .st{color:var(--am);letter-spacing:.1em;margin-bottom:.5rem}.tm p{margin:0 0 .9rem;font-size:.98rem}.tm small{color:var(--mu)}
+details{border-bottom:1px solid var(--ln);padding:1.15rem 0}summary{cursor:pointer;font:700 1.15rem var(--d);list-style:none;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}summary::after{content:"+";font-size:1.5rem;line-height:1;transition:transform .25s}details[open] summary::after{transform:rotate(45deg)}details p{color:var(--mu);margin:.8rem 0 0;max-width:46rem}
+.fin{background:var(--am);color:#07101a;text-align:center;padding:clamp(4rem,9vw,7rem) 0;overflow:hidden}
+.fin h2{font-size:clamp(2.6rem,8vw,7rem);margin-bottom:1.2rem}.fin p{max-width:30rem;margin:0 auto 2rem;font-size:1.15rem}
+.fin .btn{background:#07101a;color:#fff;font-size:1.15rem;padding:1.15rem 2.2rem}.fin .btn:hover{background:#14283b}.fin .tl{display:block;margin-top:1.4rem;font-weight:700;font-family:var(--d)}
+footer{background:#04080e;color:var(--mu);padding:2rem 0;font-size:.88rem}footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+/* dialog */
+#dlg{position:fixed;inset:0;z-index:50;display:grid;place-items:end center;visibility:hidden;opacity:0;transition:opacity .3s,visibility .3s}
+#dlg.open{visibility:visible;opacity:1}
+.bk{position:absolute;inset:0;background:rgba(3,6,10,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.sheet{position:relative;width:min(36rem,100%);max-height:94svh;overflow:auto;background:#fff;color:#0b1824;border-radius:22px 22px 0 0;padding:1.6rem clamp(1.2rem,4vw,2rem) calc(1.6rem + env(safe-area-inset-bottom,0px));transform:translateY(40px);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+#dlg.open .sheet{transform:none}
+@media(min-width:700px){#dlg{place-items:center}.sheet{border-radius:22px}}
+.sheet h3{font-size:1.7rem;margin-bottom:.3rem;color:#0b1824}.sheet>p,.sheet form+p{color:#5a6b7b;font-size:.92rem;margin:0 0 1.2rem}
+.x{position:absolute;right:1rem;top:1rem;width:2.4rem;height:2.4rem;border-radius:50%;border:0;background:#eef2f5;font-size:1.3rem;cursor:pointer;color:#0b1824}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}.f{display:block;margin-bottom:.9rem}.f>span{display:block;font-weight:600;font-size:.86rem;margin-bottom:.35rem}
+.f input,.f select{width:100%;font:inherit;padding:.85rem .9rem;border:1.5px solid #d9e1e8;border-radius:10px;background:#fff;color:#0b1824;min-height:3rem}
+.f input:focus,.f select:focus{outline:3px solid rgba(255,180,0,.55);border-color:#0b1824}.f.bad input{border-color:#c0392b}.f em{display:none;font-style:normal;color:#c0392b;font-size:.82rem;margin-top:.3rem}.f.bad em{display:block}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:0 0 .9rem;border:0;padding:0}.seg legend{font-weight:600;font-size:.86rem;margin-bottom:.35rem;padding:0}
+.seg label{position:relative}.seg input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.seg span{display:block;text-align:center;padding:.7rem .3rem;border:1.5px solid #d9e1e8;border-radius:10px;font-weight:600;font-size:.92rem;transition:.15s}.seg span small{display:block;font-weight:400;color:#5a6b7b;font-size:.74rem}
+.seg input:checked+span{border-color:#0b1824;background:#0b1824;color:#fff}.seg input:checked+span small{color:#b9c6d3}.seg input:focus-visible+span{outline:3px solid var(--am);outline-offset:2px}
+.sheet .btn{width:100%}.done{display:none;text-align:center;padding:1rem 0}.sent form,.sent>h3,.sent>p,.sent form+p{display:none}.sent .done{display:block}
+.done svg{width:4.5rem;height:4.5rem;color:#14866a}.done path,.done circle{stroke-dasharray:80;stroke-dashoffset:80}.sent .done path,.sent .done circle{animation:dr .8s .15s ease forwards}@keyframes dr{to{stroke-dashoffset:0}}
+.done h3{margin:.8rem 0 .5rem}.done p{color:#5a6b7b;margin:0 0 1rem}
+.mb{display:none}
+.nogl #gl,.nogl .hud{display:none}.nogl #story{height:auto;background:linear-gradient(var(--ink),var(--ink2))}.nogl .stage{position:static;height:auto;padding:6rem 0}.nogl .pn{position:static;opacity:1;margin-bottom:3rem;pointer-events:auto}
+@media(max-width:900px){
+  .hud{display:none}.cards{grid-template-columns:1fr}.cnt{grid-template-columns:1fr 1fr}.qb{grid-template-columns:1fr 1fr}.qb .btn{grid-column:1/-1}
+  .tel{display:none}.pn{bottom:9vh}.tm{width:17rem}
+  .mb{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:30;gap:.6rem;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom,0px));background:rgba(7,13,22,.95);transform:translateY(110%);transition:transform .35s}.mb.show{transform:none}.mb .btn{flex:1}
+}
+@media(prefers-reduced-motion:reduce){.wd,.fade{animation:none}.mt{animation:none}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><a class="logo" href="#top"><svg viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#ffb400"/><path d="M8 23V9l16 14V9" fill="none" stroke="#07101a" stroke-width="3.5" stroke-linejoin="round"/></svg>Northway</a>
+<div class="hr"><a class="tel" href="tel:+448001234567">0800 123 4567</a><button class="btn sm" data-open>Get a quote</button></div></div></header>
+<canvas id="gl" aria-hidden="true"></canvas>
+
+<main id="top">
+<div id="story"><div class="stage">
+  <div class="pn on" id="p0">
+    <h1 id="h1" aria-label="Freight that never stops moving.">Freight that never stops moving.</h1>
+    <p class="fade">Pallets, vans and full loads collected today, priced in 60 seconds and tracked to the door.</p>
+    <form class="qb fade" id="qb" novalidate>
+      <label><span>Collect from</span><input id="q1" placeholder="Postcode" autocomplete="postal-code" aria-label="Collect from postcode"></label>
+      <label><span>Deliver to</span><input id="q2" placeholder="Postcode" aria-label="Deliver to postcode"></label>
+      <button class="btn" type="submit">Get price</button>
+    </form>
+    <div class="proof fade"><span><b>4.9 ★</b> from 2,100+ reviews</span><span><b>£2m</b> cover</span><span><b>24/7</b> dispatch</span></div>
+  </div>
+  <div class="pn" id="p1"><span class="big">90 min</span><h2>Collected the same afternoon.</h2><p>Book before 2pm and a driver is at your door within 90 minutes.</p></div>
+  <div class="pn" id="p2"><h2>Tracked every mile.</h2><p>Live ETA and driver contact, shared with you and your customer.</p><button class="btn" data-open>Get my price</button></div>
+  <div class="pn" id="p3"><h2>One fixed price. Fully insured.</h2><p>The quote is the invoice. Up to £2m goods-in-transit cover on every load.</p><button class="btn" data-open>Get my price</button></div>
+  <div class="pn" id="p4"><span class="big">98.7%</span><h2>Delivered on time.</h2><p>Glasgow by 07:00, tracked from the first mile to the signature.</p><button class="btn" data-open>Get my price</button></div>
+  <aside class="hud" id="hud" aria-label="Live tracking demo"><h4>NW-4471 · LON → GLA <i>● Live</i></h4><div class="sp"><span id="hs">0</span> <small>mph</small></div>
+    <dl><dt>Next stop</dt><dd id="hn">Birmingham</dd><dt>Miles left</dt><dd id="hr">414</dd><dt>Arrives</dt><dd>07:00</dd></dl><div class="bar"><b id="hb"></b></div></aside>
+</div></div>
+
+<div class="after">
+<section class="s" id="services"><div class="wrap">
+  <div class="sh"><h2>The right vehicle, priced upfront.</h2><p>Choose by load size. Every option includes tracking, insurance and proof of delivery.</p></div>
+  <div class="cards">
+    <article class="sc"><h3>Pallet freight</h3><div class="pr">£58<small> from, per pallet</small></div><ul><li>Next-day to 98% of the UK</li><li>Tail-lift and timed delivery</li><li>60+ depot network</li></ul><button class="btn line" data-open data-t="Pallet">Quote pallets</button></article>
+    <article class="sc pop"><h3>Same-day van</h3><div class="pr">£89<small> from, in 90 min</small></div><ul><li>Door to door, one driver</li><li>Live ETA and driver contact</li><li>Urgent and fragile loads</li></ul><button class="btn" data-open data-t="Van">Quote a van</button></article>
+    <article class="sc"><h3>Full HGV load</h3><div class="pr">£340<small> from, up to 26t</small></div><ul><li>Curtain-side, box or chilled</li><li>Dedicated vehicle, direct route</li><li>Regular-lane contracts</li></ul><button class="btn line" data-open data-t="HGV">Quote a full load</button></article>
+  </div>
+</div></section>
+<section class="s" style="padding-top:0"><div class="wrap"><div class="cnt">
+  <div><b data-to="2400" data-s="+">0</b><span>deliveries every day</span></div><div><b data-to="98.7" data-d="1" data-s="%">0</b><span>delivered on time</span></div>
+  <div><b data-to="60" data-s="+">0</b><span>depots in our network</span></div><div><b data-to="15" data-s=" min">0</b><span>average quote response</span></div>
+</div></div></section>
+<section class="s" style="padding-top:0"><div class="mq" aria-label="Customer reviews"><div class="mt" id="mt"></div></div></section>
+<section class="s" style="padding-top:0"><div class="wrap" style="max-width:52rem"><div class="sh"><h2>Questions before you book.</h2></div>
+  <details><summary>How fast will I get a price?</summary><p>Usually within 15 minutes, Monday to Saturday. For urgent loads call 0800 123 4567 and we price while you are on the line.</p></details>
+  <details><summary>Is the price really fixed?</summary><p>Yes. It includes fuel, tolls and standard waiting time. We only change it if the load or addresses change.</p></details>
+  <details><summary>What if goods are damaged or late?</summary><p>Every load carries up to £2m goods-in-transit cover. If we are late through our own fault, 20% is credited automatically.</p></details>
+  <details><summary>Can I set up regular collections?</summary><p>Yes. Regular lanes get a locked rate, a named dispatcher and monthly invoicing on 30-day terms.</p></details>
+</div></section>
+<section class="fin"><div class="wrap"><h2>Your freight is waiting.</h2><p>Get a fixed price in 15 minutes, or call and we will price it while you wait.</p><button class="btn" data-open id="mag">Get my price</button><a class="tl" href="tel:+448001234567">or call 0800 123 4567</a></div></section>
+<footer><div class="wrap"><span>© <span id="yr">2026</span> Northway Freight Ltd. Registered in England.</span><span>Terms · Privacy · Insurance</span></div></footer>
+</div>
+</main>
+<div class="mb" id="mb"><button class="btn" data-open>Get a price</button><a class="btn line" href="tel:+448001234567">Call</a></div>
+
+<div id="dlg" role="dialog" aria-modal="true" aria-labelledby="dt"><div class="bk" data-close></div>
+<div class="sheet"><button class="x" data-close aria-label="Close">×</button>
+  <h3 id="dt">Get your price</h3><p>Takes 30 seconds. No payment needed.</p>
+  <form id="qf" novalidate>
+    <div class="fr"><label class="f"><span>Collect from</span><input name="from" placeholder="e.g. M1 1AE" autocomplete="postal-code"><em>Enter a UK postcode</em></label>
+    <label class="f"><span>Deliver to</span><input name="to" placeholder="e.g. EH1 1YZ"><em>Enter a UK postcode</em></label></div>
+    <fieldset class="seg"><legend>What are you sending?</legend>
+      <label><input type="radio" name="type" value="Pallet" checked><span>Pallets<small>1–26</small></span></label>
+      <label><input type="radio" name="type" value="Van"><span>Van load<small>up to 1.2t</small></span></label>
+      <label><input type="radio" name="type" value="HGV"><span>Full HGV<small>up to 26t</small></span></label></fieldset>
+    <div class="fr"><label class="f"><span>When?</span><select name="when"><option>Today (before 2pm)</option><option>Tomorrow</option><option>This week</option><option>Not sure yet</option></select></label>
+    <label class="f"><span>Email for your price</span><input type="email" name="email" placeholder="you@company.co.uk" autocomplete="email"><em>Enter a valid email</em></label></div>
+    <button class="btn" type="submit">Send me my price</button>
+  </form><p>Reply in under 15 minutes, Mon–Sat. We never share your details.</p>
+  <div class="done" role="status" aria-live="polite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7 12.5l3.2 3.2L17 9"/></svg><h3>Request received</h3><p id="dm"></p><a class="btn" href="tel:+448001234567">Need it faster? Call 0800 123 4567</a></div>
+</div></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script>
+(function(){
+  var $=function(s){return document.querySelector(s)},reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,V=THREE.Vector3;
+  $('#yr').textContent=new Date().getFullYear();
+  /* headline word reveal */
+  var h=$('#h1');h.innerHTML=h.textContent.split(' ').map(function(w,i){return '<span class="wl"><span class="wd" aria-hidden="true" style="--i:'+i+'">'+w+'</span></span>';}).join(' ');
+  /* reviews marquee */
+  var RV=[['Priced in ten minutes, collected the same afternoon. It landed in Leeds by morning.','Priya Shah','Retail distributor'],['The tracking link alone saved us a dozen calls a week.','Tom Hallett','Kitchen fitting firm'],['Fixed price, no add-ons, and someone answers the phone at night.','Aisha Rahman','Food manufacturer'],['Our regular Manchester lane has not missed a slot in 14 months.','Dan Whitmore','Print and packaging']];
+  $('#mt').innerHTML=RV.concat(RV).map(function(r){return '<figure class="tm" style="margin:0"><div class="st">★★★★★</div><p>“'+r[0]+'”</p><b>'+r[1]+'</b><br><small>'+r[2]+'</small></figure>';}).join('');
+  /* counters */
+  var co=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;co.unobserve(e.target);var el=e.target,to=+el.dataset.to,d=+el.dataset.d||0,s=el.dataset.s||'',t0=performance.now();
+    (function tk(n){var p=reduce?1:Math.min(1,(n-t0)/1600),v=to*(1-Math.pow(1-p,3));el.textContent=(d?v.toFixed(d):Math.round(v).toLocaleString('en-GB'))+s;if(p<1)requestAnimationFrame(tk);})(t0);});},{threshold:.6});
+  document.querySelectorAll('[data-to]').forEach(function(el){co.observe(el);});
+  /* card tilt + glow, magnetic button */
+  document.querySelectorAll('.sc').forEach(function(c){
+    c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');if(!reduce)c.style.transform='rotateY('+(x-.5)*8+'deg) rotateX('+(.5-y)*8+'deg)';});
+    c.addEventListener('pointerleave',function(){c.style.transform='';});});
+  var mag=$('#mag');mag.addEventListener('pointermove',function(e){if(reduce)return;var r=mag.getBoundingClientRect();mag.style.transform='translate('+(e.clientX-r.left-r.width/2)*.25+'px,'+(e.clientY-r.top-r.height/2)*.35+'px)';});
+  mag.addEventListener('pointerleave',function(){mag.style.transform='';mag.style.transition='transform .5s cubic-bezier(.2,.8,.2,1)';});
+
+  /* ---------- quote flow ---------- */
+  var dlg=$('#dlg'),form=$('#qf'),opener=null,pc=/^[A-Za-z]{1,2}\d[A-Za-z\d]?\s?\d[A-Za-z]{2}$/,em=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function chk(i){var v=i.value.trim(),ok=i.name==='email'?em.test(v):pc.test(v);i.closest('.f').classList.toggle('bad',!ok);return ok;}
+  var req=form.querySelectorAll('input[name=from],input[name=to],input[name=email]');
+  req.forEach(function(i){i.addEventListener('blur',function(){if(i.value)chk(i);});i.addEventListener('input',function(){if(i.closest('.f').classList.contains('bad'))chk(i);});});
+  function open(from,to,t,el){opener=el||document.activeElement;if(from)form.from.value=from;if(to)form.to.value=to;if(t){var r=form.querySelector('input[name=type][value='+t+']');if(r)r.checked=true;}
+    dlg.classList.add('open');document.body.style.overflow='hidden';setTimeout(function(){(!form.from.value?form.from:!form.to.value?form.to:form.email).focus();},350);}
+  function close(){dlg.classList.remove('open');document.body.style.overflow='';if(opener&&opener.focus)opener.focus();}
+  document.querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){open(null,null,b.dataset.t,b);});});
+  dlg.querySelectorAll('[data-close]').forEach(function(b){b.addEventListener('click',close);});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&dlg.classList.contains('open'))close();});
+  $('#qb').addEventListener('submit',function(e){e.preventDefault();var a=$('#q1'),b=$('#q2'),ok=true;
+    [a,b].forEach(function(i){var g=pc.test(i.value.trim());i.parentNode.classList.toggle('bad',!g);if(!g)ok=false;});
+    if(!ok){(pc.test(a.value.trim())?b:a).focus();return;}open(a.value.trim().toUpperCase(),b.value.trim().toUpperCase(),null,e.submitter);});
+  form.addEventListener('submit',function(e){e.preventDefault();var ok=true,first=null;req.forEach(function(i){if(!chk(i)){ok=false;first=first||i;}});if(!ok){first.focus();return;}
+    var f=new FormData(form);$('#dm').textContent='Ref NW-'+(10000+Math.floor(Math.random()*89999))+'. A dispatcher is pricing your '+f.get('type').toLowerCase()+' load from '+f.get('from').toUpperCase()+' to '+f.get('to').toUpperCase()+'. Check '+f.get('email')+' within 15 minutes.';
+    dlg.querySelector('.sheet').classList.add('sent');});
+  var mb=$('#mb');new IntersectionObserver(function(es){mb.classList.toggle('show',!es[0].isIntersecting&&scrollY>200);},{threshold:0}).observe($('#p0'));
+
+  /* ---------- 3D scene ---------- */
+  var story=$('#story'),pn=[0,1,2,3,4].map(function(i){return $('#p'+i);}),hud=$('#hud'),hs=$('#hs'),hn=$('#hn'),hr=$('#hr'),hb=$('#hb');
+  var R;try{R=new THREE.WebGLRenderer({canvas:$('#gl'),antialias:false});}catch(e){document.body.classList.add('nogl');return;}
+  var PR=Math.min(devicePixelRatio,1.6);R.setPixelRatio(PR);
+  var scene=new THREE.Scene(),BG=0x070d16;scene.background=new THREE.Color(BG);scene.fog=new THREE.FogExp2(BG,.014);
+  var cam=new THREE.PerspectiveCamera(50,1,.1,500);scene.add(cam);
+  scene.add(new THREE.HemisphereLight(0x5575a8,0x05080c,.9));
+  var moon=new THREE.DirectionalLight(0x9db8ff,.5);moon.position.set(-40,60,20);scene.add(moon);
+  function tex(w,h,fn){var c=document.createElement('canvas');c.width=w;c.height=h;fn(c.getContext('2d'),w,h);var t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;}
+  var UP=new V(0,1,0);
+  var curve=new THREE.CatmullRomCurve3([[0,0,0],[12,0,-45],[-8,.6,-100],[-34,1.2,-160],[-6,2,-225],[34,1.2,-285],[24,.4,-350],[-12,0,-415],[-22,0,-480]].map(function(a){return new V(a[0],a[1],a[2]);}));
+  var L=curve.getLength();
+  function frame(u){var p=curve.getPointAt(u),t=curve.getTangentAt(u).normalize(),r=new V().crossVectors(t,UP).normalize();return{p:p,t:t,r:r};}
+
+  /* road + ground */
+  var roadT=tex(256,256,function(x,w,h){x.fillStyle='#0f1720';x.fillRect(0,0,w,h);for(var i=0;i<1600;i++){x.fillStyle='rgba(255,255,255,'+Math.random()*.06+')';x.fillRect(Math.random()*w,Math.random()*h,2,2);}
+    x.fillStyle='#dfe7ee';x.fillRect(12,0,5,h);x.fillRect(w-17,0,5,h);x.fillRect(w/2-3,8,6,h*.45);});
+  roadT.wrapS=roadT.wrapT=THREE.RepeatWrapping;
+  var pos=[],uv=[],idx=[],M=800,W=3.4;
+  for(var i=0;i<=M;i++){var f=frame(i/M);pos.push(f.p.x-f.r.x*W,f.p.y+.03,f.p.z-f.r.z*W,f.p.x+f.r.x*W,f.p.y+.03,f.p.z+f.r.z*W);uv.push(0,i/M*L/8,1,i/M*L/8);if(i<M){var a=i*2;idx.push(a,a+1,a+2,a+1,a+3,a+2);}}
+  var rg=new THREE.BufferGeometry();rg.setAttribute('position',new THREE.Float32BufferAttribute(pos,3));rg.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));rg.setIndex(idx);rg.computeVertexNormals();
+  scene.add(new THREE.Mesh(rg,new THREE.MeshStandardMaterial({map:roadT,roughness:.55,metalness:.1,side:THREE.DoubleSide})));
+  var grid=new THREE.GridHelper(1400,280,0x17405f,0x0d2237);grid.position.set(0,-.05,-240);scene.add(grid);
+
+  /* buildings with lit windows, streetlights, checkpoint arches */
+  var winT=tex(64,128,function(x,w,h){x.fillStyle='#000';x.fillRect(0,0,w,h);for(var yy=6;yy<h-6;yy+=12)for(var xx=6;xx<w-6;xx+=12)if(Math.random()<.38){x.fillStyle=Math.random()<.7?'#ffd68a':'#a9dcff';x.fillRect(xx,yy,6,7);}});
+  var bm=new THREE.MeshStandardMaterial({color:0x0b1522,emissive:0xffffff,emissiveMap:winT,emissiveIntensity:.95,roughness:.8});
+  var NB=300,bld=new THREE.InstancedMesh(new THREE.BoxGeometry(1,1,1),bm,NB),o3=new THREE.Object3D();
+  for(i=0;i<NB;i++){var fr=frame(Math.random()),s=Math.random()<.5?-1:1,off=16+Math.random()*60,bw=5+Math.random()*7,bh=bw*(1.2+Math.random()*2.6);
+    o3.position.set(fr.p.x+fr.r.x*s*off,bh/2,fr.p.z+fr.r.z*s*off);o3.scale.set(bw,bh,bw*(.8+Math.random()*.6));o3.rotation.y=Math.atan2(fr.t.x,fr.t.z);o3.updateMatrix();bld.setMatrixAt(i,o3.matrix);}
+  scene.add(bld);
+  var NL=Math.floor(L/26),poles=new THREE.InstancedMesh(new THREE.BoxGeometry(.18,7,.18),new THREE.MeshStandardMaterial({color:0x1b2735}),NL*2),heads=new THREE.InstancedMesh(new THREE.SphereGeometry(.45,8,8),new THREE.MeshBasicMaterial({color:0xffc766}),NL*2);
+  for(i=0;i<NL;i++)[-1,1].forEach(function(s,k){var fr=frame((i+.5)/NL);o3.rotation.set(0,0,0);o3.scale.set(1,1,1);
+    o3.position.set(fr.p.x+fr.r.x*s*4.6,3.5,fr.p.z+fr.r.z*s*4.6);o3.updateMatrix();poles.setMatrixAt(i*2+k,o3.matrix);
+    o3.position.set(fr.p.x+fr.r.x*s*3.9,7.1,fr.p.z+fr.r.z*s*3.9);o3.updateMatrix();heads.setMatrixAt(i*2+k,o3.matrix);});
+  scene.add(poles);scene.add(heads);
+  var FR=[.0,.3,.55,.78,1],NM=['London','Birmingham','Manchester','Leeds','Glasgow'],AMB=new THREE.MeshBasicMaterial({color:0xffb400});
+  FR.forEach(function(f,i){var fr=frame(Math.min(.999,Math.max(.001,f))),g=new THREE.Group();
+    g.add(new THREE.Mesh(new THREE.TorusGeometry(5.4,.14,8,48,Math.PI),AMB));
+    var lt=tex(512,128,function(x,w,h){x.fillStyle='#fff';x.font='800 78px Archivo,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText(NM[i].toUpperCase(),w/2,h/2);});
+    var sp=new THREE.Sprite(new THREE.SpriteMaterial({map:lt,transparent:true,depthWrite:false,fog:false}));sp.scale.set(14,3.5,1);sp.position.y=8.4;g.add(sp);
+    g.position.copy(fr.p);g.lookAt(fr.p.clone().add(fr.t));scene.add(g);});
+
+  /* the truck */
+  var truck=new THREE.Group(),wheels=[];
+  function bx(w,h,d,x,y,z,c,em){var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color:c,metalness:.35,roughness:.4,emissive:em||0,emissiveIntensity:em?1.8:0}));m.position.set(x,y,z);truck.add(m);return m;}
+  bx(2.5,2.9,8.2,0,2.35,-2.5,0xe9eff4);bx(2.56,.45,8.26,0,1.15,-2.5,0xffb400);bx(2.4,2.3,2.3,0,1.95,3.1,0xffb400);bx(2.42,.95,.1,0,2.55,4.27,0x08121d);
+  bx(2.2,.5,10.6,0,.8,-1.2,0x0a0f16);
+  [-1,1].forEach(function(s){bx(.55,.3,.1,s*.8,1.25,4.27,0xfff3d0,0xfff3d0);bx(.45,.25,.1,s*.9,1.3,-6.62,0xff2a2a,0xff2a2a);bx(.2,.12,.2,s*1,3.88,-6.3,0xffb400,0xffb400);bx(.2,.12,.2,s*1,3.88,1.3,0xffb400,0xffb400);
+    [3.2,-3.4,-5.1].forEach(function(z){var g=new THREE.CylinderGeometry(.58,.58,.42,18);g.rotateZ(Math.PI/2);var w=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x10151c,roughness:.7}));w.position.set(s*1.25,.58,z);truck.add(w);wheels.push(w);});
+    var lg=new THREE.Mesh(new THREE.PlaneGeometry(7.4,2.1),new THREE.MeshBasicMaterial({transparent:true,map:tex(740,210,function(x,w,h){x.fillStyle='#0b1824';x.font='900 120px Archivo,Arial,sans-serif';x.textAlign='center';x.textBaseline='middle';x.fillText('NORTHWAY',w/2,h/2);})}));
+    lg.position.set(s*1.27,2.5,-2.5);lg.rotation.y=s*Math.PI/2;truck.add(lg);
+    var bm2=new THREE.Mesh((function(){var g=new THREE.ConeGeometry(2.3,17,28,1,true);g.rotateX(-Math.PI/2);g.translate(0,0,8.5);return g;})(),new THREE.ShaderMaterial({transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,side:THREE.DoubleSide,
+      vertexShader:'varying float z;void main(){z=position.z;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'varying float z;void main(){gl_FragColor=vec4(1.,.93,.75,.2*pow(1.-z/17.,1.6));}'}));
+    bm2.position.set(s*.8,1.25,4.3);truck.add(bm2);});
+  var spot=new THREE.SpotLight(0xfff1cf,3,80,.5,.6,1);spot.position.set(0,1.4,4.3);var tg=new THREE.Object3D();tg.position.set(0,.2,26);truck.add(spot);truck.add(tg);spot.target=tg;
+  scene.add(truck);
+
+  /* speed dust attached to camera */
+  var ND=700,dp=new Float32Array(ND*3);for(i=0;i<ND;i++){dp[i*3]=(Math.random()-.5)*34;dp[i*3+1]=Math.random()*16-6;dp[i*3+2]=-Math.random()*42;}
+  var dg=new THREE.BufferGeometry();dg.setAttribute('position',new THREE.BufferAttribute(dp,3));
+  cam.add(new THREE.Points(dg,new THREE.PointsMaterial({color:0xcfe4ff,size:.09,transparent:true,opacity:.55,blending:THREE.AdditiveBlending,depthWrite:false})));
+
+  /* post */
+  var comp=null,fx;
+  if(THREE.EffectComposer&&THREE.UnrealBloomPass&&THREE.ShaderPass){comp=new THREE.EffectComposer(R);comp.setPixelRatio(PR);comp.addPass(new THREE.RenderPass(scene,cam));
+    comp.addPass(new THREE.UnrealBloomPass(new THREE.Vector2(innerWidth,innerHeight),1.0,.65,.18));
+    fx=new THREE.ShaderPass({uniforms:{tDiffuse:{value:null},uA:{value:0}},vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+      fragmentShader:'uniform sampler2D tDiffuse;uniform float uA;varying vec2 vUv;void main(){vec2 c=vUv-.5;float d=dot(c,c);vec2 o=c*(.0012+uA)*(.6+d*3.);vec3 col=vec3(texture2D(tDiffuse,vUv+o).r,texture2D(tDiffuse,vUv).g,texture2D(tDiffuse,vUv-o).b);col*=1.-d*1.05;gl_FragColor=vec4(col,1.);}'});comp.addPass(fx);}
+  function resize(){var w=innerWidth,h=innerHeight;if(comp)comp.setSize(w,h);R.setSize(w,h,false);cam.aspect=w/h;cam.fov=w/h<1?68:50;cam.updateProjectionMatrix();}resize();addEventListener('resize',resize);
+
+  /* camera shots relative to the truck: [right,up,forward, lookRight,lookUp,lookForward] */
+  var KF=[[5.5,1.5,13,0,2,0],[0,5.2,-17,0,2.4,14],[15,2.4,.5,0,2,.5],[7,26,-9,0,0,6],[-9,3.2,14,0,2.6,0]],INTRO=[34,15,46,0,2,0];
+  var sm=0,vel=0,lastY=scrollY,t0=performance.now(),last=t0,cp=new V(),cl=new V(),lastSI=-1,time=0,pu=0;
+  function ss(x){x=Math.max(0,Math.min(1,x));return x*x*(3-2*x);}
+  function loop(now){
+    requestAnimationFrame(loop);var dt=Math.min(.05,(now-last)/1000);last=now;time+=dt;
+    var r=story.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+    var p=Math.max(0,Math.min(1,-r.top/(r.height-innerHeight)));
+    var sy=scrollY;vel+=(Math.abs(sy-lastY)/Math.max(dt,.001)-vel)*.12;lastY=sy;
+    sm+=(p-sm)*(reduce?1:Math.min(1,dt*6));var s=sm*4,i=Math.min(3,Math.floor(s)),fe=ss((s-i-.2)/.6);
+    var u=.012+.975*sm,fr=frame(u),sp0=Math.max(0,(u-pu)*L)/Math.max(dt,.001);pu=u;
+    truck.position.copy(fr.p);truck.position.y+=Math.sin(time*9)*.015*Math.min(1,vel/300);truck.lookAt(fr.p.clone().add(fr.t));
+    wheels.forEach(function(w){w.rotation.x+=(sp0*dt)/.58;});
+    var ik=reduce?1:ss((now-t0)/3200),k=[],j;for(j=0;j<6;j++){var a=KF[i][j]+(KF[i+1][j]-KF[i][j])*fe;if(i===0)a=a+(INTRO[j]-a)*(1-ik)*(1-fe);k.push(a);}
+    var tp=fr.p.clone().addScaledVector(fr.r,k[0]).addScaledVector(UP,k[1]).addScaledVector(fr.t,k[2]);
+    var tl=fr.p.clone().addScaledVector(fr.r,k[3]).addScaledVector(UP,k[4]).addScaledVector(fr.t,k[5]);
+    var q=reduce?1:1-Math.exp(-dt*5);if(time<.05){cp.copy(tp);cl.copy(tl);}cp.lerp(tp,q);cl.lerp(tl,q);cam.position.copy(cp);cam.lookAt(cl);
+    var dv=Math.min(60,vel*.02);var da=dg.attributes.position.array;for(j=0;j<ND;j++){da[j*3+2]+=(2+dv)*dt;if(da[j*3+2]>2)da[j*3+2]=-42;}dg.attributes.position.needsUpdate=true;
+    if(fx)fx.uniforms.uA.value=reduce?0:Math.min(.014,vel*.000012);
+    /* overlays */
+    for(j=0;j<5;j++){var o=Math.max(0,Math.min(1,1.6-Math.abs(s-j)*2.6));pn[j].style.setProperty('--o',o.toFixed(3));pn[j].classList.toggle('on',o>.5);}
+    var mph=Math.round(Math.min(62,vel/45));hs.textContent=mph;hr.textContent=Math.round(414*(1-sm));hb.style.transform='scaleX('+sm+')';
+    for(j=1;j<5;j++)if(sm<=FR[j]+.001){hn.textContent=NM[j];break;}
+    hud.classList.toggle('hot',s>1.6&&s<2.4);
+    (comp?comp.render():R.render(scene,cam));
+  }
+  requestAnimationFrame(loop);
+})();
+</script>
+</body>
+</html>
